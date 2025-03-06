@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import useRecipeStore from '../stores/recipeStore';
 
 const EditRecipeForm = () => {
+  event.preventDefault();
   const { recipeId } = useParams();
   const navigate = useNavigate();
   const recipe = useRecipeStore(state => 
