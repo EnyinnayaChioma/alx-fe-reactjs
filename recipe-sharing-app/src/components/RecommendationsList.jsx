@@ -1,5 +1,4 @@
 import useRecipeStore from '../stores/recipeStore';
-import RecipeList from './RecipeList';
 
 const RecommendationsList = () => {
   const recommendations = useRecipeStore(state => state.recommendations);
@@ -7,8 +6,19 @@ const RecommendationsList = () => {
   return (
     <div className="recommendations-section">
       <h2>🌟 Recommended For You</h2>
-      {recommendations.length > 0 ? (
-        <RecipeList recipes={recommendations} />
+      {recommendations && recommendations.length > 0 ? (
+        <div className="recipe-grid">
+          {recommendations.map(recipe => (
+            <div key={recipe.id} className="recipe-card">
+              <h3>{recipe.title}</h3>
+              <p>{recipe.description.substring(0, 100)}...</p>
+              <div className="recipe-meta">
+                <span>🕒 {recipe.preparationTime} mins</span>
+                <span>🥕 {recipe.ingredients.length} ingredients</span>
+              </div>
+            </div>
+          ))}
+        </div>
       ) : (
         <p className="empty-state">
           Add some favorites to get personalized recommendations!
