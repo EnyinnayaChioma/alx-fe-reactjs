@@ -2,9 +2,7 @@ import { useQuery } from 'react-query';
 
 const fetchPosts = async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
+  if (!response.ok) throw new Error('Network response was not ok');
   return response.json();
 };
 
@@ -16,51 +14,26 @@ const PostsComponent = () => {
     error,
     refetch 
   } = useQuery('posts', fetchPosts, {
-    staleTime: 5000 // Keep data fresh for 5 seconds
+    // Configuration options go here
+    cacheTime: 600000,         // 10 minutes cache retention
+    staleTime: 5000,           // Data becomes stale after 5s
+    refetchOnWindowFocus: true,// Auto-refresh when window regains focus
+    keepPreviousData: true,    // Keep previous data during refetches
+    retry: 3                   // Retry failed requests 3 times
   });
 
-  if (isLoading) {
-    return <div style={{ padding: '20px' }}>Loading posts...</div>;
-  }
-
-  if (isError) {
-    return (
-      <div style={{ padding: '20px', color: 'red' }}>
-        Error: {error.message}
-      </div>
-    );
-  }
+  if (isLoading) return <div>Loading posts...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <button 
-        onClick={refetch}
-        style={{ 
-          marginBottom: '20px',
-          padding: '10px 20px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer'
-        }}
-      >
-        Refresh Posts
-      </button>
+    <div>
+      <button onClick={refetch}>Refresh Posts</button>
       
-      <div style={{ display: 'grid', gap: '20px' }}>
+      <div className="posts-container">
         {posts.map(post => (
-          <div 
-            key={post.id}
-            style={{
-              padding: '20px',
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              backgroundColor: '#f9f9f9'
-            }}
-          >
-            <h3 style={{ marginTop: 0, color: '#333' }}>{post.title}</h3>
-            <p style={{ color: '#666' }}>{post.body}</p>
+          <div key={post.id} className="post-card">
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
           </div>
         ))}
       </div>
