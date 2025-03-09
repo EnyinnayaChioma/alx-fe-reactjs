@@ -83,9 +83,9 @@ const RegistrationForm = () => {
     e.preventDefault();
     const newErrors = {};
 
-    if (!username.trim()) newErrors.username = 'Username required';
-    if (!email.trim()) newErrors.email = 'Email required';
-    if (!password.trim()) newErrors.password = 'Password required';
+    if (!username) newErrors.username = 'Username required';
+    if (!email) newErrors.email = 'Email required';
+    if (!password) newErrors.password = 'Password required';
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
