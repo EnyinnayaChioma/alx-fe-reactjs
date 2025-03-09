@@ -1,4 +1,4 @@
-// src/pages/Profile.jsx
+// src/components/Profile/Profile.jsx
 import { Link, Outlet } from 'react-router-dom'
 
 const Profile = () => {

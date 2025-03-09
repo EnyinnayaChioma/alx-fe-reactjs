@@ -1,4 +1,3 @@
-// src/components/Profile/ProfileDetails.jsx
 const ProfileDetails = () => {
   return <h2>Profile Details Section</h2>
 }
