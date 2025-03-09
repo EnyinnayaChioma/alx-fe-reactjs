@@ -1,32 +1,38 @@
-import { BrowserRouter as Router, Routes, Route, Link, Outlet } from 'react-router-dom'
-import { Home, About, Login, Profile, ProfileDetails, ProfileSettings, BlogPost } from './pages'
-import ProtectedRoute from './components/ProtectedRoute'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './components/Home';
+import Login from './components/Login';
+import Profile from './components/Profile';
+import ProfileDetails from './components/ProfileDetails';
+import ProfileSettings from './components/ProfileSettings';
+import Posts from './components/Posts';
+import Post from './components/Post';
+import ProtectedRoute from './components/ProtectedRoute';
 
-const App = () => {
-  return (
-    <Router>
-      <nav>
-        <Link to="/">Home</Link> | 
-        <Link to="/about">About</Link> | 
-        <Link to="/profile">Profile</Link> |
-        <Link to="/blog/1">Blog Post 1</Link>
-      </nav>
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: 'login', element: <Login /> },
+      {
+        path: 'profile',
+        element: <ProtectedRoute><Profile /></ProtectedRoute>,
+        children: [
+          { index: true, element: <ProfileDetails /> },
+          { path: 'details', element: <ProfileDetails /> },
+          { path: 'settings', element: <ProfileSettings /> },
+        ],
+      },
+      { path: 'posts', element: <Posts /> },
+      { path: 'posts/:postId', element: <Post /> },
+    ],
+  },
+]);
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        
-        <Route path="/profile" element={<ProtectedRoute><Outlet /></ProtectedRoute>}>
-          <Route index element={<Profile />} />
-          <Route path="details" element={<ProfileDetails />} />
-          <Route path="settings" element={<ProfileSettings />} />
-        </Route>
-
-        <Route path="/blog/:postId" element={<BlogPost />} />
-      </Routes>
-    </Router>
-  )
+function App() {
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
