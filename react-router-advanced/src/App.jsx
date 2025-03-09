@@ -1,4 +1,3 @@
-// App.jsx
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './components/Home';
@@ -6,24 +5,26 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
 
+// Create the router configuration
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'login', element: <Login /> },
+      { path: "login", element: <Login /> },
       {
-        path: 'profile',
+        path: "profile",
         element: <ProtectedRoute><Profile /></ProtectedRoute>,
         children: [
-          // Add nested routes here
+          // Nested routes here
         ]
       }
     ]
   }
 ]);
 
+// App component
 function App() {
   return <RouterProvider router={router} />;
 }
