@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import recipeData from '../data.json'; // Adjust path if needed
+import { useState, useEffect } from "react";
+import recipeData from "../data.json";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -18,14 +19,24 @@ const HomePage = () => {
       {recipes?.length > 0 ? (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recipes.map((recipe) => (
-              <article key={recipe.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl">
-              <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover"/>
+            <article
+              key={recipe.id}
+              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl"
+            >
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className="w-full h-48 object-cover"
+              />
               <div className="p-6">
                 <h2 className="text-xl font-bold mb-3">{recipe.title}</h2>
                 <p className="text-gray-600 mb-4">{recipe.summary}</p>
-                <a href={`/recipes/${recipe.id}`} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                <Link
+                  to={`/recipe/${recipe.id}`}
+                  className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                >
                   View Recipe →
-                </a>
+                </Link>
               </div>
             </article>
           ))}
@@ -36,6 +47,5 @@ const HomePage = () => {
     </div>
   );
 };
-
 
 export default HomePage;
