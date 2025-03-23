@@ -50,7 +50,7 @@ const RecipeDetail = () => {
         </div>
 
         {/* Instructions Card */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className=" instructions bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-4 text-gray-800">Instructions</h2>
           <ol className="list-decimal pl-5 space-y-4 text-gray-600">
             {recipe.steps.map((step, index) => (
