@@ -16,7 +16,7 @@ const HomePage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       {recipes?.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recipes.map((recipe) => (
               <article key={recipe.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl">
               <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover"/>
