@@ -16,6 +16,16 @@ const HomePage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+     
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">Delicious Recipes</h1>
+        <Link
+          to="/add-recipe"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+        >
+          Add Recipe
+        </Link>
+      </div>
       {recipes?.length > 0 ? (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recipes.map((recipe) => (
